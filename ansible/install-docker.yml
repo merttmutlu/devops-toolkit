@@ -1,0 +1,46 @@
+---
+- name: "Install Docker latest packages and configure clients"
+  hosts: robots
+  become: yes
+
+  tasks:
+    - name: Create a directory for .deb files
+      file:
+        path: /tmp/docker-debs
+        state: directory
+
+    - name: Download Docker .deb files
+      get_url:
+        url: "{{ item.url }}"
+        dest: "/tmp/docker-debs/{{ item.dest }}"
+        mode: 0644
+      loop:
+      - { url: "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/containerd.io_1.6.9-1_amd64.deb", dest: "containerd.io_1.6.9-1_amd64.deb" }
+      - { url: "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce-cli_24.0.4-1~ubuntu.22.04~jammy_amd64.deb", dest: "docker-ce-cli_24.0.4-1~ubuntu.22.04~jammy_amd64.deb" }
+      - { url: "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce_24.0.4-1~ubuntu.22.04~jammy_amd64.deb", dest: "docker-ce_24.0.4-1~ubuntu.22.04~jammy_amd64.deb" }
+      - { url: "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-compose-plugin_2.6.0~ubuntu-jammy_amd64.deb", dest: "docker-compose-plugin_2.6.0~ubuntu-jammy_amd64.deb" }
+
+    - name: Install Docker packages
+      apt:
+        deb: "/tmp/docker-debs/{{ item.dest }}"
+      loop:
+      - { dest: "containerd.io_1.6.9-1_amd64.deb" }
+      - { dest: "docker-ce-cli_24.0.4-1~ubuntu.22.04~jammy_amd64.deb" }
+      - { dest: "docker-ce_24.0.4-1~ubuntu.22.04~jammy_amd64.deb" }
+      - { dest: "docker-compose-plugin_2.6.0~ubuntu-jammy_amd64.deb" }
+
+    - name: Recursively remove directory docker-debs
+      file:
+        path: /tmp/docker-debs
+        state: absent
+
+    - name: Ensure group "docker" exists
+      group:
+        name: somegroup
+        state: present
+
+    - name: Add ansible user to docker group
+      user:
+        name: "{{ hostvars[inventory_hostname]['ansible_user'] }}"
+        groups: docker
+        append: yes
