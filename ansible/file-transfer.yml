@@ -1,0 +1,24 @@
+---
+- name: Transfer files to clients if there is enough avaliable space.
+  hosts: robots
+  become: yes
+  gather_facts: false  
+  vars:
+    required_disk_space: 20
+    src_file_path: "write source path"
+    dest_file_path: "write destination path"
+
+  tasks:
+  - name: "Check Available Disk Space"
+    command: df --output=avail --block-size=1G /
+    register: df_output
+
+  - name: "Extract available disk space"
+    set_fact:
+      available_disk_space: "{{ df_output.stdout_lines[1] }}"
+
+  - name: "Transfer Files"
+    copy:
+      src: "{{ src_file_path  }}"
+      dest: "{{ dest_file_path }}"
+    when: available_disk_space | int > required_disk_space
