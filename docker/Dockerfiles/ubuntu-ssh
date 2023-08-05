@@ -1,0 +1,24 @@
+# Use the Ubuntu 22.04 base image
+FROM ubuntu:22.04
+
+# Update and install required packages
+RUN apt-get update && \
+    apt-get install -y openssh-server && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Create the user and set password
+RUN useradd -m -s /bin/bash user && \
+    echo 'user:1234' | chpasswd
+
+# Create .ssh directory and set permission
+RUN mkdir /home/user/.ssh && \
+    chown user:user /home/user/.ssh && \
+    chmod 775 -R /home/user/.ssh
+
+# Configure SSH
+RUN mkdir -p /var/run/sshd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
+
+# Start SSH server
+CMD ["/usr/sbin/sshd", "-D"]
