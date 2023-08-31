@@ -9,7 +9,7 @@ RUN python3 -m pip install --user ansible
 RUN echo "export PATH="$PATH:/root/.local/bin" >> /root/.bashrc"
 
 # Create directories within the container for organizing Ansible playbooks, sources, and credentials.
-RUN mkdir \
+RUN mkdir -p \
     /opt/ansible/playbooks \
     /opt/ansible/sources \
     /opt/ansible/credentials
