@@ -9,4 +9,6 @@ This repository contains a simple log generator script that allows you to set th
 You can change the log level using the following command:
 
 ```bash
-docker exec -i log-generator sh -c 'echo "LOG_LEVEL" > /tmp/logs/log-level'
+docker exec -i log-generator sh -c 'echo "INFO" > /tmp/logs/log-level'
+docker exec -i log-generator sh -c 'echo "WARN" > /tmp/logs/log-level'
+docker exec -i log-generator sh -c 'echo "ERROR" > /tmp/logs/log-level'
