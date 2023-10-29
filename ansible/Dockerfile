@@ -16,6 +16,4 @@ RUN mkdir -p \
 
 WORKDIR /ansible
 
-ENTRYPOINT [ "ansible" ]
-
-CMD [ "--version" ]
+CMD [ "ansible", "--version" ]
