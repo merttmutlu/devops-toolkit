@@ -18,4 +18,4 @@ WORKDIR /ansible
 
 ENTRYPOINT [ "ansible" ]
 
-CMD ["ansible", "--version"]
+CMD [ "--version" ]
