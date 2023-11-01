@@ -9,14 +9,14 @@ RUN python3 -m pip install --user ansible
 ENV PATH=/root/.local/bin:$PATH
 
 RUN mkdir -p \
-	/ansible/inventory \
-	/ansible/playbooks/files \
-	/ansible/roles/common \
-	/ansible/roles/tasks \
-	/ansible/roles/handlers \
-	/ansible/roles/files \
-	/ansible/roles/templates
+	/ansible/inventories \
+	/ansible/roles \
+	/ansible/keys \
+	/ansible/playbooks
 
 WORKDIR /ansible
+
+COPY roles/ /ansible/roles/
+COPY playbooks /ansible/playbooks/
 
 CMD [ "ansible", "--version" ]
