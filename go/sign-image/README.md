@@ -12,9 +12,11 @@ Before you begin, ensure you have the following installed:
 ## Installation
 
 To install the required Go packages, run the following commands in your terminal or command prompt:
-`go get github.com/aws/aws-sdk-go-v2`
-`go get github.com/aws/aws-sdk-go-v2/config`
-`go get github.com/aws/aws-sdk-go-v2/service/ecr` 
+```bash
+go get github.com/aws/aws-sdk-go-v2
+go get github.com/aws/aws-sdk-go-v2/config
+go get github.com/aws/aws-sdk-go-v2/service/ecr
+```
 
 ## Configuration
 
@@ -42,9 +44,11 @@ Set the following environment variables with your AWS credentials:
 -   `AWS_DEFAULT_REGION`: Your preferred AWS region.
 
 Example:
-`export AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY_ID`
-`export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_ACCESS_KEY`
-`export AWS_DEFAULT_REGION=eu-central-1` 
+```bash
+export AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY_ID`
+export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_ACCESS_KEY`
+export AWS_DEFAULT_REGION=eu-central-1` 
+```
 
 ## Usage
 
