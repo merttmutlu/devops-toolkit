@@ -1,4 +1,4 @@
-name: Build and push milvus-tinc to ECR
+name: Build docker images and push to ECR
 
 on:
   push:
