@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mongodb:
+    image: arm64v8/mongo:7.0.4-jammy
+    container_name: "mongodb-development"
+    entrypoint: ["/custom-entrypoint.sh"]
+    ports:
+      - 27017:27017
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - "mongodb_data:/data/db"
+      - ./custom-entrypoint.sh:/custom-entrypoint.sh
+    restart: always
+
+volumes:
+  mongodb_data:
