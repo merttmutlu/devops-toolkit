@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  mongo-express:
+    image: mongo-express:1.0.2-20
+    container_name: milvus-mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=ADMIN
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=PASS
+      - ME_CONFIG_MONGODB_SERVER=CONTAINER-NAME-OF-MONGO
+    networks:
+      - mongo-network # MONGO'S NETWORK
+
+networks:
+  mongo-network: # MONGO'S NETWORK
+    external: true
