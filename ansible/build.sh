@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Static variables
-image_name=ansible
+image_name=ansible-runner
 
 # Get the tag for the image
 read -p "Please enter $image_name version: " tag
